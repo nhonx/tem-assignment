@@ -146,7 +146,10 @@ const main = () => {
     import  {${Object.keys(json.definitions).join(",")}} from "./schema";\n
     `
     const testFieldValues = {}
+    console.log("Starting transformer...")
+    console.log(`Transform ${Object.keys(json.definitions).length} models...`)
     Object.keys(json.definitions).forEach((x, idx) => {
+        console.log(`Transform model: ${x}...`)
         const rs = createTSClassFromObject(x, json.definitions[x])
         if (rs.code === 0) {
             output += `
@@ -165,6 +168,7 @@ const main = () => {
         }
         testFieldValues[x] = rs.tests.map(x => generateTestValue(x));
     })
+    console.log("Creating Unit tests....")
     Object.keys(json.definitions).forEach((x) => {
         const testValues = testFieldValues[x].map(f => {
             if (typeof f === "string" && f.startsWith("TESTFIELD_")) {
@@ -183,7 +187,9 @@ const main = () => {
           });
         `
     })
+    console.log("Writing output file...")
     fs.writeFileSync("./problem1/schema.ts", output);
     fs.writeFileSync("./problem1/schema.test.ts", unitTestOutput);
+    console.log("Done.")
 }
 main()
