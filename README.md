@@ -4,7 +4,7 @@
 
 - What currently transformed:
 
-  - Primitive type: string, number, integer, boolean, enum.
+  - Primitive type: `string`, `number`, `integer`, `boolean`, `enum`.
   - Object reference type: object, arrays, other Class references.
   - Class constructor.
   - Optional/required properties.
