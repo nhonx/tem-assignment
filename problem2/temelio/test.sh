@@ -1,0 +1,2 @@
+curl -XGET http://localhost:8080/nonprofits 
+curl -XPOST http://localhost:8080/nonprofits -d '{"legalName": "MMM", "address": { "street": "12 NNN", "city": "AKA", "state": "MY", "zipCode": "123" }, "ein": "EIN-113" , "mission": "xvzxvzxv" }' -H "Content-Type: application/json" 
