@@ -1,6 +1,0 @@
-com/yammer/config/ApplicationHealthCheck.class
-com/yammer/model/Nonprofit.class
-com/yammer/repository/NonprofitRepository.class
-com/yammer/App.class
-com/yammer/model/Address.class
-com/yammer/api/NonprofitController.class
