@@ -23,7 +23,7 @@
 ## Problem 2
 
 - Preinstalled: JDK + Maven
-- Run `maven clean package` to build the server.
+- Run `mvn clean package` to build the server.
 - Run `java -jar target/temelio-1.0-SNAPSHOT.jar server sample.yml` for starting the Web Server. The API service will be running in port 8080.
 - Open `http://localhost:8080/swagger` to see the Swagger API Document and download the file `openapi.json`.
 - Copy the file `openapi.json` to root folder and run the command `node Solution1.js openapi.json`.
