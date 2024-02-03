@@ -12,7 +12,7 @@
 - We can validate the schema with any TS linter or formatter, but for more convenience, I'm also generating a Jest test file for the transformed TS schema, to validating the generated schema.
 
 - Steps to run the code:
-  - Run `node Solution1.js` to generate `schema.ts` and `schema.test.ts`.
+  - Run `node Solution1.js <swagger_specs.json>` to generate `schema.ts` and `schema.test.ts`.
   - Install necessary dependencies and run the test for validation
   ```
     cd problem1

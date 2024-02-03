@@ -141,8 +141,11 @@ const createTSClassFromObject = (modelName, model) => {
 
 
 const main = () => {
-    const raw = fs.readFileSync("./swagger.json");
+    var args = process.argv.slice(2);
+    if (args.length == 0) return;
+    const raw = fs.readFileSync(args[0]);
     const parsedJson = JSON.parse(raw);
+
     // There're differences between Temelio's Swagger file and my generated OpenAPI Swagger file
     // So I made this check to correct it.
     if (parsedJson.openapi) {
