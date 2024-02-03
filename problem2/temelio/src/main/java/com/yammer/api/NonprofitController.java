@@ -69,7 +69,7 @@ public class NonprofitController {
     Integer newId = repository.getNonprofits().size() + 1;
     np.setId(newId);
     repository.updateNonprofit(newId, np);
-    return Response.created(new URI("/nonprofit/" + newId.toString())).build();
+    return Response.ok(np).build();
   }
 
   @PUT
@@ -114,7 +114,7 @@ public class NonprofitController {
     sm.setId(newId);
     sm.setNonprofitId(id);
     submissionRepository.updateSubmission(newId, sm);
-    return Response.created(new URI("/submission/" + newId.toString())).build();
+    return Response.ok(sm).build();
   }
 
   @PUT
