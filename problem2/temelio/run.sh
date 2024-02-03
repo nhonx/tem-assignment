@@ -1,0 +1,1 @@
+mvn clean package && java -jar target/temelio-1.0-SNAPSHOT.jar server
