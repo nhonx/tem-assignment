@@ -3,3 +3,4 @@ problem1/schema.ts
 problem1/schema.test.ts
 */node_modules
 **/target/
+**/.DS_Store

@@ -48,6 +48,17 @@ public class SubmissionRepository {
     return submissions.get(id);
   }
 
+  public List<Submission> getSubmissionsByIds(Integer npId, Integer subId) {
+    List<Submission> subList = this.getSubmissions();
+    var result = new ArrayList<Submission>();
+    for (Submission sub : subList) {
+      if (sub.getNonprofitId() == npId && (subId == -1 || sub.id == subId)) {
+        result.add(sub);
+      }
+    }
+    return result;
+  }
+
   public static void updateSubmission(Integer id, Submission s) {
     submissions.put(id, s);
   }

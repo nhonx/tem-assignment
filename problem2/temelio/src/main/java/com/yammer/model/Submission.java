@@ -14,7 +14,7 @@ import org.hibernate.validator.constraints.NotBlank;
 public class Submission {
 
   public Integer id;
-  private Integer NonprofitId;
+  private Integer nonProfitId;
   private String grantName;
   private Integer requestedAmount;
   private Integer awardedAmount;
@@ -26,7 +26,11 @@ public class Submission {
     this.id = _id;
   }
 
+  public void setNonprofitId(Integer _npId) {
+    this.nonProfitId = _npId;
+  }
+
   public Integer getNonprofitId() {
-    return this.NonprofitId;
+    return this.nonProfitId;
   }
 }

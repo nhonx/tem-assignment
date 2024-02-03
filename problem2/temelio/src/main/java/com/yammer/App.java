@@ -1,7 +1,6 @@
 package com.yammer;
 
 import com.yammer.api.NonprofitController;
-import com.yammer.api.SubmissionController;
 import com.yammer.config.ApplicationHealthCheck;
 import com.yammer.repository.NonprofitRepository;
 import com.yammer.repository.SubmissionRepository;
@@ -21,7 +20,7 @@ public class App extends Application<Configuration> {
 
   @Override
   public void run(Configuration c, Environment e) throws Exception {
-    LOGGER.info("Registering REST resources");
+    LOGGER.info("Registering REST resources" + App.class);
     e
       .jersey()
       .register(
@@ -31,11 +30,7 @@ public class App extends Application<Configuration> {
           new SubmissionRepository()
         )
       );
-    e
-      .jersey()
-      .register(
-        new SubmissionController(e.getValidator(), new SubmissionRepository())
-      );
+
     LOGGER.info("Registering Application Health Check");
     // e.healthChecks().register("application", new ApplicationHealthCheck());
   }

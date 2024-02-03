@@ -90,15 +90,41 @@ public class NonprofitController {
   @GET
   @Path("/{id}/submissions")
   public Response getSubmissionsByNonprofitId(@PathParam("id") Integer id) {
-    List<Submission> subList = submissionRepository.getSubmissions();
-    var result = new ArrayList<Submission>();
-    for (Submission sub : subList) {
-      if (sub.getNonprofitId() == id) {
-        result.add(sub);
-      }
-    }
+    var result = submissionRepository.getSubmissionsByIds(id, -1);
     if (result.size() > 0) {
       return Response.ok(result).build();
+    } else {
+      return Response.status(Status.NOT_FOUND).build();
+    }
+  }
+
+  @POST
+  @Path("/{id}/submissions")
+  public Response createSubmission(@PathParam("id") Integer id, Submission sm)
+    throws URISyntaxException {
+    Integer newId = submissionRepository.getSubmissions().size() + 1;
+    sm.setId(newId);
+    sm.setNonprofitId(id);
+    submissionRepository.updateSubmission(newId, sm);
+    return Response.created(new URI("/submission/" + newId.toString())).build();
+  }
+
+  @PUT
+  @Path("/{id}/submissions/{subId}")
+  public Response updateSubmissionById(
+    @PathParam("id") Integer id,
+    @PathParam("subId") Integer subId,
+    Submission sm
+  ) {
+    List<Submission> subList = submissionRepository.getSubmissionsByIds(
+      id,
+      subId
+    );
+    if (subList.size() > 0) {
+      sm.setId(subId);
+      sm.setNonprofitId(id);
+      submissionRepository.updateSubmission(subId, sm);
+      return Response.ok(sm).build();
     } else {
       return Response.status(Status.NOT_FOUND).build();
     }
@@ -110,13 +136,14 @@ public class NonprofitController {
     @PathParam("id") Integer id,
     @PathParam("subId") Integer subId
   ) {
-    List<Submission> subList = submissionRepository.getSubmissions();
-    var result = new ArrayList<Submission>();
-    for (Submission sub : subList) {
-      if (sub.getNonprofitId() == id && sub.id == subId) {
-        return Response.ok(sub).build();
-      }
+    List<Submission> subList = submissionRepository.getSubmissionsByIds(
+      id,
+      subId
+    );
+    if (subList.size() > 0) {
+      return Response.ok(subList.get(0)).build();
+    } else {
+      return Response.status(Status.NOT_FOUND).build();
     }
-    return Response.status(Status.NOT_FOUND).build();
   }
 }
