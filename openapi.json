@@ -1,0 +1,313 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "contact" : { },
+    "license" : { }
+  },
+  "paths" : {
+    "/nonprofits" : {
+      "get" : {
+        "summary" : "Hello",
+        "description" : "Returns hello",
+        "operationId" : "getNonprofits",
+        "responses" : {
+          "200" : {
+            "description" : "hello"
+          }
+        }
+      },
+      "post" : {
+        "operationId" : "createNonprofit",
+        "requestBody" : {
+          "content" : {
+            "*/*" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Nonprofit"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/nonprofits/{id}/submissions" : {
+      "get" : {
+        "operationId" : "getSubmissionsByNonprofitId",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      },
+      "post" : {
+        "operationId" : "createSubmission",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "*/*" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Submission"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/nonprofits/submissions" : {
+      "get" : {
+        "operationId" : "getAllSubmissions",
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/nonprofits/{id}" : {
+      "get" : {
+        "operationId" : "getNonprofitById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      },
+      "put" : {
+        "operationId" : "updateNonprofitById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "*/*" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Nonprofit"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/nonprofits/{id}/submissions/{subId}" : {
+      "get" : {
+        "operationId" : "getSubmissionByNonprofitId",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "subId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      },
+      "put" : {
+        "operationId" : "updateSubmissionById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "subId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "*/*" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Submission"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Address" : {
+        "type" : "object",
+        "properties" : {
+          "street" : {
+            "type" : "string"
+          },
+          "city" : {
+            "type" : "string"
+          },
+          "state" : {
+            "type" : "string"
+          },
+          "zipCode" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Nonprofit" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "legalName" : {
+            "type" : "string"
+          },
+          "address" : {
+            "$ref" : "#/components/schemas/Address"
+          },
+          "ein" : {
+            "type" : "string"
+          },
+          "mission" : {
+            "type" : "string"
+          }
+        }
+      },
+      "GrantDuration" : {
+        "type" : "object",
+        "properties" : {
+          "grantStart" : {
+            "type" : "string"
+          },
+          "grantEnd" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Submission" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "grantName" : {
+            "type" : "string"
+          },
+          "requestedAmount" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "awardedAmount" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "grantType" : {
+            "type" : "string",
+            "enum" : [ "OPERATING_GRANT", "PROJECT_GRANT", "OTHER" ]
+          },
+          "tags" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "grantDuration" : {
+            "$ref" : "#/components/schemas/GrantDuration"
+          },
+          "nonprofitId" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      }
+    }
+  }
+}

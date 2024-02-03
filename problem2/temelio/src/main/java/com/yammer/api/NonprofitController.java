@@ -4,6 +4,9 @@ import com.yammer.model.Nonprofit;
 import com.yammer.model.Submission;
 import com.yammer.repository.NonprofitRepository;
 import com.yammer.repository.SubmissionRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 import jakarta.ws.rs.DELETE;
@@ -41,6 +44,11 @@ public class NonprofitController {
   }
 
   @GET
+  @Operation(
+    summary = "Hello",
+    description = "Returns hello",
+    responses = { @ApiResponse(responseCode = "200", description = "hello") }
+  )
   public Response getNonprofits() {
     return Response.ok(repository.getNonprofits()).build();
   }

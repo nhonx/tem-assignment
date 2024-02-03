@@ -1,5 +1,8 @@
 const fs = require("fs");
 
+const CONFIG = {
+    refReplacing: "#/definitions/"
+}
 const generateTestValue = (fieldType) => {
     var testValue = "";
     switch (fieldType) {
@@ -85,21 +88,21 @@ const createTSClassFromObject = (modelName, model) => {
                             if (props.items.type !== "array") {
                                 processing(pkey, `${props.items.type}[]`, isRequired, desc)
                             } else {
-                                const ntype = (props.items.items.$ref) ? props.items.items.$ref.replace("#/definitions/", "") :
+                                const ntype = (props.items.items.$ref) ? props.items.items.$ref.replace(CONFIG.refReplacing, "") :
                                     props.items.items.type;
                                 processing(pkey, `${ntype}[]`, isRequired, desc)
                             }
                             break;
                         }
                         if (props.items.$ref) {
-                            const ntype = props.items.$ref.replace("#/definitions/", "");
+                            const ntype = props.items.$ref.replace(CONFIG.refReplacing, "");
                             processing(pkey, `${ntype}[]`, isRequired, desc)
                             break;
                         }
                     }
                     case undefined: {
                         if (props.$ref) {
-                            const ntype = props.$ref.replace("#/definitions/", "");
+                            const ntype = props.$ref.replace(CONFIG.refReplacing, "");
                             processing(pkey, ntype, isRequired, desc)
                         }
                         break;
@@ -139,7 +142,16 @@ const createTSClassFromObject = (modelName, model) => {
 
 const main = () => {
     const raw = fs.readFileSync("./swagger.json");
-    const json = JSON.parse(raw);
+    const parsedJson = JSON.parse(raw);
+    // There're differences between Temelio's Swagger file and my generated OpenAPI Swagger file
+    // So I made this check to correct it.
+    if (parsedJson.openapi) {
+        CONFIG.refReplacing = "#/components/schemas/"
+    }
+    const json = parsedJson.openapi ? {
+        definitions: parsedJson.components.schemas
+    } : parsedJson
+
     var output = ""
     var unitTestOutput = `
     import { describe, expect, test } from "@jest/globals";
